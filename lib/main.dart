@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/modules/add_property_detail.dart';
 
 import 'modules/LoginPage/login.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: login(),
+      home: Add_property_detail(),
     );
   }
 }

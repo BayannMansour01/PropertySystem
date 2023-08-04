@@ -1,63 +1,79 @@
-// import 'package:dio/dio.dart';
-// import 'package:flutter/cupertino.dart';
+import 'package:dio/dio.dart';
 
-// class diohelper {
-//   static Dio? dio;
-//   //بنيت الديو
-//   static init() {
-//     dio = Dio(
-//       BaseOptions(
-//         baseUrl: 'https://billingsystemproject1.000webhostapp.com/api/',
-//         receiveDataWhenStatusError: true,
-//       ),
-//     );
-//   }
+class DioHelper {
+  static Dio? dio;
 
-//   static Future<Response> getData({
-//     @required String? url,
-//     @required query,
-//     String? token,
-//   }) async {
-//     dio!.options.headers = {'Authorization': 'Bearer $token'};
-//     return dio!.get(url!, queryParameters: query);
-//   }
+  static init() {
+    dio = Dio(
+      BaseOptions(
+        baseUrl: 'http://192.168.43.37:8000/api/',
+        receiveDataWhenStatusError: true,
+        headers: {'Accept': 'application/json'},
+      ),
+    );
+  }
 
-//   static Future<Response<dynamic>> postData(
-//       {@required String? url,
-//       @required data,
-//       @required query,
-//       String? token,
-//       String? content_type}) async {
-//     dio!.options.headers = {
-//       'Authorization': 'Bearer $token',
-//       'contentType': content_type
-//     };
-//     return dio!.post(url!, data: data);
-//   }
+  static Future<Response> getData({
+    required String url,
+    Map<String, dynamic>? query,
+    String? token,
+  }) async {
+    return await dio!.get(
+      url,
+      queryParameters: query,
+      options: Options(
+        // headers: {"authorization": "Bearer $token"},
+        headers: {'auth-token': token},
+      ),
+    );
+  }
 
-//   static Future<Response<dynamic>> deleteData(
-//       {@required url,
-//       @required data,
-//       @required query,
-//       String? token,
-//       String? content_type}) async {
-//     dio!.options.headers = {
-//       'Authorization': 'Bearer $token',
-//       'contentType': content_type
-//     };
-//     return dio!.delete(url!, data: data);
-//   }
+  static Future<Response> postData({
+    required String url,
+    Map<String, dynamic>? query,
+    required Map<String, dynamic> data,
+    String? token,
+  }) async {
+    return await dio!.post(
+      url,
+      queryParameters: query,
+      options: Options(
+        headers: {'auth-token': token},
+        // headers: {"authorization": "Bearer $token"},
+      ),
+      data: data,
+    );
+  }
 
-//   static Future<Response<dynamic>> putData(
-//       {@required String? url,
-//       data,
-//       query,
-//       String? token,
-//       String? content_type}) async {
-//     dio!.options.headers = {
-//       'Authorization': 'Bearer $token',
-//       'contentType': content_type
-//     };
-//     return dio!.put(url!, data: data);
-//   }
-// }
+  static Future<Response> putData({
+    required String url,
+    Map<String, dynamic>? query,
+    required Map<String, dynamic> data,
+    String? token,
+  }) async {
+    return await dio!.put(
+      url,
+      queryParameters: query,
+      options: Options(
+        headers: {"authorization": "Bearer $token"},
+      ),
+      data: data,
+    );
+  }
+
+  static Future<Response> deleteData({
+    required String url,
+    Map<String, dynamic>? query,
+    Map<String, dynamic>? data,
+    String? token,
+  }) async {
+    return await dio!.delete(
+      url,
+      queryParameters: query,
+      options: Options(
+        headers: {"authorization": "Bearer $token"},
+      ),
+      data: data,
+    );
+  }
+}

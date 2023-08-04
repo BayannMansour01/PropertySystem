@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/modules/add_property_detail.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/shared/network/local/cache_helper.dart';
+import 'package:untitled/shared/network/remote/dio_helper.dart';
+import 'package:untitled/shared/utils/app_router.dart';
+import 'modules/add_property_screen/add_property_screen.dart';
+import 'modules/login_screen/login_screen.dart';
 
-import 'modules/LoginPage/login.dart';
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
+  DioHelper.init();
   runApp(const MyApp());
 }
 
@@ -12,13 +18,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
-      home: Add_property_detail(),
+    return ScreenUtilInit(
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            useMaterial3: true,
+            primarySwatch: Colors.blueGrey,
+          ),
+          initialRoute: CacheHelper.getData(key: 'Token') == null
+              ? LoginView.route
+              : AddPropertyView.route,
+          routes: AppRouter.router,
+          // home: Add_property_detail(),
+        );
+      },
     );
   }
 }

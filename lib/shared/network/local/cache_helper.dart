@@ -1,26 +1,44 @@
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// class CacheHelper {
-//   static late SharedPreferences prefs;
-//   static init() async {
-//     final prefs = await SharedPreferences.getInstance();
-//   }
+class CacheHelper {
+  static SharedPreferences? sharedPreferences;
 
-//   static getData({required key}) {
-//     return prefs.get(key);
-//   }
+  static init() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+  }
 
-//   static Future<bool> savedata(
-//       {required String key, required dynamic value}) async {
-//     if (value is String) {
-//       return await prefs.setString(key, value);
-//     }
-//     if (value is int) {
-//       return await prefs.setInt(key, value);
-//     }
-//     if (value is bool) {
-//       return await prefs.setBool(key, value);
-//     }
-//     return await prefs.setDouble(key, value);
-//   }
-// }
+  static Future<bool> saveData({
+    required String key,
+    required dynamic value,
+  }) async {
+    if (value is String) {
+      return await sharedPreferences!.setString(key, value);
+    }
+
+    if (value is int) {
+      return await sharedPreferences!.setInt(key, value);
+    }
+
+    if (value is bool) {
+      return await sharedPreferences!.setBool(key, value);
+    }
+
+    return await sharedPreferences!.setDouble(key, value);
+  }
+
+  static dynamic getData({
+    required String key,
+  }) {
+    return sharedPreferences!.get(
+      key,
+    );
+  }
+
+  static dynamic deletData({
+    required String key,
+  }) {
+    return sharedPreferences!.remove(
+      key,
+    );
+  }
+}

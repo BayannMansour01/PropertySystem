@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../shared/cubit/App_state.dart';
 import '../shared/cubit/app_cubit.dart';
 import 'add_property_detail.dart';
@@ -20,13 +18,12 @@ class Search extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: Colors.purple.shade100,
             ),
-            body: Container(
-                child: Column(children: [
+            body: Column(children: [
               TextButton(
                   onPressed: () {
                     showModalBottomSheet(
                         context: context,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(30))),
                         //    isScrollControlled: true,
@@ -37,20 +34,20 @@ class Search extends StatelessWidget {
                                 builder: (context, state) {
                                   return SingleChildScrollView(
                                     child: Container(
-                                      padding: EdgeInsets.all(30),
+                                      padding: const EdgeInsets.all(30),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 20,
                                           ),
                                           Row(
                                             children: [
                                               Column(children: [
-                                                Text(
+                                                const Text(
                                                   ' Region',
                                                   style: TextStyle(
                                                     color: Colors.grey,
@@ -75,7 +72,7 @@ class Search extends StatelessWidget {
                                                                 child: Text(
                                                                   item,
                                                                   style:
-                                                                      TextStyle(
+                                                                      const TextStyle(
                                                                     color: Colors
                                                                         .purple,
                                                                     fontSize:
@@ -90,11 +87,11 @@ class Search extends StatelessWidget {
                                                   ),
                                                 ),
                                               ]),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 50,
                                               ),
                                               Column(children: [
-                                                Text(
+                                                const Text(
                                                   'State',
                                                   style: TextStyle(
                                                     color: Colors.grey,
@@ -103,9 +100,10 @@ class Search extends StatelessWidget {
                                                 ),
                                                 DropdownButtonHideUnderline(
                                                   child: Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 10.0,
-                                                        right: 10.0),
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            left: 10.0,
+                                                            right: 10.0),
                                                     child:
                                                         DropdownButton<String>(
                                                       // borderRadius:
@@ -130,7 +128,7 @@ class Search extends StatelessWidget {
                                                                   child: Text(
                                                                     item,
                                                                     style:
-                                                                        TextStyle(
+                                                                        const TextStyle(
                                                                       color: Colors
                                                                           .purple,
                                                                       fontSize:
@@ -148,68 +146,64 @@ class Search extends StatelessWidget {
                                               ]),
                                             ],
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 20,
                                           ),
-                                          Text(
+                                          const Text(
                                             ' Price',
                                             style: TextStyle(
                                               color: Colors.grey,
                                               fontSize: 20,
                                             ),
                                           ),
-                                          Container(
-                                            child: RangeSlider(
-                                              values: AppCubit.get(context)
-                                                  .values_p,
-                                              min: 0.0,
-                                              max: 100.0,
-                                              divisions: 10,
-                                              activeColor: Colors.purple,
-                                              inactiveColor: Colors.grey,
-                                              labels: RangeLabels(
-                                                  '${AppCubit.get(context).values_p.start}',
-                                                  '${AppCubit.get(context).values_p.end}'),
-                                              onChanged: (values) {
-                                                AppCubit.get(context)
-                                                    .searchprice(values);
-                                              },
-                                            ),
+                                          RangeSlider(
+                                            values:
+                                                AppCubit.get(context).values_p,
+                                            min: 0.0,
+                                            max: 100.0,
+                                            divisions: 10,
+                                            activeColor: Colors.purple,
+                                            inactiveColor: Colors.grey,
+                                            labels: RangeLabels(
+                                                '${AppCubit.get(context).values_p.start}',
+                                                '${AppCubit.get(context).values_p.end}'),
+                                            onChanged: (values) {
+                                              AppCubit.get(context)
+                                                  .searchprice(values);
+                                            },
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 20,
                                           ),
-                                          Text(
+                                          const Text(
                                             ' Space',
                                             style: TextStyle(
                                               color: Colors.grey,
                                               fontSize: 20,
                                             ),
                                           ),
-                                          Container(
-                                            child: RangeSlider(
-                                              values: AppCubit.get(context)
-                                                  .values_s,
-                                              min: 0.0,
-                                              max: 1000.0,
-                                              divisions: 50,
-                                              activeColor: Colors.purple,
-                                              inactiveColor: Colors.grey,
-                                              labels: RangeLabels(
-                                                  '${AppCubit.get(context).values_s.start}',
-                                                  '${AppCubit.get(context).values_s.end}'),
-                                              onChanged: (values) {
-                                                AppCubit.get(context)
-                                                    .searchspace(values);
-                                              },
-                                            ),
+                                          RangeSlider(
+                                            values:
+                                                AppCubit.get(context).values_s,
+                                            min: 0.0,
+                                            max: 1000.0,
+                                            divisions: 50,
+                                            activeColor: Colors.purple,
+                                            inactiveColor: Colors.grey,
+                                            labels: RangeLabels(
+                                                '${AppCubit.get(context).values_s.start}',
+                                                '${AppCubit.get(context).values_s.end}'),
+                                            onChanged: (values) {
+                                              AppCubit.get(context)
+                                                  .searchspace(values);
+                                            },
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 20,
                                           ),
                                           Wrap(children: <Widget>[
                                             Row(children: [
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 20,
                                               ),
                                               Column(
@@ -219,13 +213,14 @@ class Search extends StatelessWidget {
                                                     Container(
                                                         height: 3.0,
                                                         width: 90.0,
-                                                        color: Color.fromARGB(
+                                                        color: const Color
+                                                                .fromARGB(
                                                             181, 59, 2, 97)),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     TextButton(
-                                                      child: Text(
+                                                      child: const Text(
                                                         'Search',
                                                         style: TextStyle(
                                                             color:
@@ -235,7 +230,7 @@ class Search extends StatelessWidget {
                                                       onPressed: () {},
                                                     ),
                                                   ]),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 100,
                                               ),
                                               Column(
@@ -245,13 +240,13 @@ class Search extends StatelessWidget {
                                                     Container(
                                                         height: 3.0,
                                                         width: 90.0,
-                                                        color:
-                                                            Color(0xFF32335C)),
-                                                    SizedBox(
+                                                        color: const Color(
+                                                            0xFF32335C)),
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     TextButton(
-                                                      child: Text(
+                                                      child: const Text(
                                                         'Cancel',
                                                         style: TextStyle(
                                                             color:
@@ -273,7 +268,7 @@ class Search extends StatelessWidget {
                               ),
                             ));
                   },
-                  child: Row(
+                  child: const Row(
                     children: [
                       Text('Search', style: TextStyle(color: Colors.purple)),
                       SizedBox(
@@ -288,19 +283,19 @@ class Search extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            insetPadding: EdgeInsets.symmetric(
+                            insetPadding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 10),
                             contentPadding: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0))),
                             content: Builder(builder: (context) {
-                              return Container(
+                              return SizedBox(
                                 width: 250,
                                 height: 200,
                                 child: Column(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 25,
                                     ),
                                     Container(
@@ -314,7 +309,7 @@ class Search extends StatelessWidget {
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 8,
                                             blurRadius: 7,
-                                            offset: Offset(0, 3),
+                                            offset: const Offset(0, 3),
                                           ),
                                         ],
                                       ),
@@ -324,59 +319,61 @@ class Search extends StatelessWidget {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Add_property_detail()));
+                                                      const Add_property_detail()));
                                         },
-                                        child: Text('Add Property For Sale'),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      width: 240,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 8,
-                                            blurRadius: 7,
-                                            offset: Offset(0, 3),
-                                          ),
-                                        ],
-                                      ),
-                                      child: TextButton(
-                                        onPressed: () {},
-                                        child: Text(' Add Property For Rent'),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      width: 240,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 8,
-                                            blurRadius: 7,
-                                            offset: Offset(0, 3),
-                                          ),
-                                        ],
-                                      ),
-                                      child: TextButton(
-                                        onPressed: () {},
                                         child:
-                                            Text('Add Property For Daily Rent'),
+                                            const Text('Add Property For Sale'),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      width: 240,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 8,
+                                            blurRadius: 7,
+                                            offset: const Offset(0, 3),
+                                          ),
+                                        ],
+                                      ),
+                                      child: TextButton(
+                                        onPressed: () {},
+                                        child: const Text(
+                                            ' Add Property For Rent'),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      width: 240,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 8,
+                                            blurRadius: 7,
+                                            offset: const Offset(0, 3),
+                                          ),
+                                        ],
+                                      ),
+                                      child: TextButton(
+                                        onPressed: () {},
+                                        child: const Text(
+                                            'Add Property For Daily Rent'),
+                                      ),
+                                    ),
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                   ],
@@ -386,7 +383,7 @@ class Search extends StatelessWidget {
                           );
                         });
                   },
-                  child: Row(
+                  child: const Row(
                     children: [
                       Text('Add Property',
                           style: TextStyle(color: Colors.purple)),
@@ -396,7 +393,7 @@ class Search extends StatelessWidget {
                       Icon(Icons.add_business_outlined, color: Colors.purple)
                     ],
                   ))
-            ])),
+            ]),
           );
         },
       ),

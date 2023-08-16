@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/modules/login_screen/widgets/password_suffix_icon.dart';
+import 'package:untitled/modules/properties_screen/properties_screen.dart';
 import '../../../shared/functions/custom_snack_bar.dart';
 import '../../../shared/network/local/cache_helper.dart';
 import '../../../shared/styles/app_colors.dart';
 import '../../../shared/widgets/custome_button.dart';
 import '../../../shared/widgets/custome_progress_indicator.dart';
 import '../../../shared/widgets/custome_text_field.dart';
-import '../../add_property_screen/add_property_screen.dart';
+import '../../register_screen/register_screen.dart';
 import '../cubit/login_cubit.dart';
 import '../cubit/login_states.dart';
 import 'login_design_section.dart';
@@ -33,7 +34,7 @@ class LoginViewBody extends StatelessWidget {
           return const CustomeProgressIndicator();
         } else if (state is LoginSuccess) {
           CacheHelper.saveData(key: 'Token', value: state.userModel.token);
-          return const AddPropertyView();
+          return PropertiesView(userModel: state.userModel);
         } else {
           return _LoginBody(loginCubit: loginCubit);
         }
@@ -59,10 +60,15 @@ class _LoginBody extends StatelessWidget {
             children: [
               SizedBox(height: 15.h),
               const LoginDesignSection(),
-              SizedBox(height: 30.h),
+              SizedBox(height: 60.h),
               CustomeTextField(
                 keyboardType: TextInputType.emailAddress,
-                hintText: ' Email ...',
+                suffixIcon: const Icon(
+                  Icons.email,
+                  color: AppColors.defaultColor,
+                  size: 27,
+                ),
+                labelText: 'Email',
                 onChanged: (value) => loginCubit.email = value,
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
@@ -78,7 +84,7 @@ class _LoginBody extends StatelessWidget {
               SizedBox(height: 20.h),
               CustomeTextField(
                 iconData: Icons.lock,
-                hintText: ' Password ...',
+                labelText: 'Password',
                 obscureText: loginCubit.obscureText,
                 onChanged: (value) => loginCubit.password = value,
                 suffixIcon: const PasswordSuffixIcon(),
@@ -91,6 +97,7 @@ class _LoginBody extends StatelessWidget {
                     if (loginCubit.formKey.currentState!.validate()) {
                       await loginCubit.login();
                     }
+                    // CacheHelper.deletData(key: 'Token');
                   },
                 ),
               ),
@@ -108,7 +115,7 @@ class _LoginBody extends StatelessWidget {
                   SizedBox(width: 6.w),
                   TextButton(
                     onPressed: () {
-                      // Navigator.pushNamed(context, RegisterView.route);
+                      Navigator.pushNamed(context, RegisterView.route);
                     },
                     child: const Text(
                       'Create Account',

@@ -1,17 +1,15 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'App_state.dart';
 
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitial());
   static AppCubit get(context) => BlocProvider.of(context);
   List<String> items = ['Damascus', 'Customer'];
-  RangeValues values_p = RangeValues(0.0, 100.0);
-  RangeValues values_s = RangeValues(0.0, 1000);
+  RangeValues values_p = const RangeValues(0.0, 100.0);
+  RangeValues values_s = const RangeValues(0.0, 1000);
   List<String> types = ['House', 'Chalet', 'Market'];
   int s = 0;
   int p = 0;

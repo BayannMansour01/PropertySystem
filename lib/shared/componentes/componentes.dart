@@ -63,9 +63,10 @@ Widget defaultButton({
         onPressed: () {
           function();
         },
-        child: Text(text, style: TextStyle(fontSize: 20, color: Colors.white)
-            //style: TextStyle(color: Colors.white),
-            ),
+        child:
+            Text(text, style: const TextStyle(fontSize: 20, color: Colors.white)
+                //style: TextStyle(color: Colors.white),
+                ),
       ),
     );
 

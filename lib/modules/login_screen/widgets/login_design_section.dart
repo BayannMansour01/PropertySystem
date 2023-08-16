@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../shared/styles/app_colors.dart';
-import '../../../shared/styles/text_styles.dart';
+import 'package:untitled/shared/styles/app_colors.dart';
+import 'package:untitled/shared/utils/app_assets.dart';
+import 'package:untitled/shared/widgets/custome_image.dart';
 
 class LoginDesignSection extends StatelessWidget {
   const LoginDesignSection({super.key});
@@ -9,29 +10,31 @@ class LoginDesignSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Center(
-        //   child: CustomeImage(
-        //     image: AppAssets.loginImage,
-        //     width: 220.w,
-        //     height: 150.h,
-        //   ),
-        // ),
         SizedBox(
-          width: 220.w,
-          height: 150.h,
+          width: 500.w,
+          height: 80.w,
         ),
-        SizedBox(height: 40.h),
-        Text(
-          'Login',
-          style: Styles.textStyle50.copyWith(color: AppColors.defaultColor),
+        const CustomeImage(
+          image: AppAssets.logo,
+          color: Colors.transparent,
         ),
-        SizedBox(height: 10.h),
+        const SizedBox(height: 10),
         Text(
-          'Please Enter Your Credentials To Get Started ...',
-          style: Styles.textStyle18,
-          maxLines: 2,
+          'Welcome To PropScan',
+          style: TextStyle(
+            color: AppColors.defaultColor,
+            fontSize: 27.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const Text(
+          'helping you to find the best choice',
+          style: TextStyle(
+            color: Colors.grey,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     );

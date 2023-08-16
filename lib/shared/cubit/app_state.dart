@@ -9,3 +9,5 @@ class add_image extends AppState {}
 class add_feature extends AppState {}
 
 class add_type extends AppState {}
+
+class reservation_state extends AppState {}

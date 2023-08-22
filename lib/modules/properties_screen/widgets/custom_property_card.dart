@@ -80,7 +80,7 @@ class PropertyCard extends StatelessWidget {
                       image: NetworkImage(
                         properties.images.isEmpty
                             ? ''
-                            : "http://192.168.43.37:8000/${properties.images[0]["image"]}",
+                            : "http://192.168.43.142:8000/${properties.images[0]["image"]}",
                       ),
                       fit: BoxFit.cover,
                     ),

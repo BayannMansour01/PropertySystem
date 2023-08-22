@@ -2,9 +2,19 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:untitled/modules/google_map_screen/google_map_screen.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
+//import 'package:untitled/modules/add_property_screen/widgets/select_regions_button.dart';
+
 import 'package:untitled/modules/properties_screen/cubit/properties_cubit.dart';
 import 'package:untitled/modules/properties_screen/cubit/properties_states.dart';
+import 'package:untitled/modules/properties_screen/search/searchVeiw.dart';
+import 'package:untitled/modules/properties_screen/search/search_cubit.dart';
+import 'package:untitled/modules/properties_screen/search/search_state.dart';
+import 'package:untitled/modules/properties_screen/search/select_governorates_button.dart';
+import 'package:untitled/modules/properties_screen/search/select_regions_button.dart';
 import 'package:untitled/modules/properties_screen/widgets/custom_drawer.dart';
 import 'package:untitled/modules/properties_screen/widgets/custom_property_card.dart';
 import 'package:untitled/modules/properties_screen/widgets/footer.dart';
@@ -13,9 +23,14 @@ import 'package:untitled/shared/functions/custom_snack_bar.dart';
 import 'package:untitled/shared/models/property_model.dart';
 import 'package:untitled/shared/models/user_model.dart';
 import 'package:untitled/shared/network/remote/firebase/firebase_apis.dart';
+
 import 'package:untitled/shared/widgets/custome_progress_indicator.dart';
 import '../../shared/models/property_model.dart';
+
+import '../../shared/functions/custom_snack_bar.dart';
+
 import '../../shared/styles/app_colors.dart';
+import '../add_property_screen/widgets/property_text_field.dart';
 
 class PropertiesView extends StatefulWidget {
   static const route = 'PropertiesView';
@@ -58,8 +73,177 @@ class _PropertiesViewState extends State<PropertiesView> {
                     height: 50.h,
                   ),
                 ),
+                IconButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                          context: context,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(30))),
+                          //    isScrollControlled: true,
+
+                          builder: (context) => BlocProvider(
+                                create: (context) => SearchCubit(),
+                                child: BlocConsumer<SearchCubit, Search_States>(
+                                  listener: (context, state) {},
+                                  builder: (context, state) {
+                                    SearchCubit searchcubit =
+                                        BlocProvider.of<SearchCubit>(context);
+                                    return SingleChildScrollView(
+                                      child: Container(
+                                        padding: const EdgeInsets.all(30),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            SelectGovernoratesButtons(
+                                              searchCubit: searchcubit,
+                                            ),
+                                            Divider(
+                                                color: Colors.grey,
+                                                height: 20.h),
+                                            SelectRegionsButtons(
+                                                searchCubit: searchcubit),
+                                            Divider(
+                                                color: Colors.grey,
+                                                height: 20.h),
+                                            PropertyInfoItem(
+                                              text: 'Space',
+                                              onChanged: (p0) => searchcubit
+                                                  .space = int.parse(p0),
+                                            ),
+                                            Divider(
+                                                color: Colors.grey,
+                                                height: 20.h),
+                                            PropertyInfoItem(
+                                              text: 'Price',
+                                              onChanged: (p0) => searchcubit
+                                                  .price = int.parse(p0),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Wrap(children: <Widget>[
+                                              Row(children: [
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                          height: 3.0,
+                                                          width: 90.0,
+                                                          color: Colors.grey),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      TextButton(
+                                                          child: const Text(
+                                                            'Search',
+                                                            style: TextStyle(
+                                                                color: AppColors
+                                                                    .defaultColor,
+                                                                fontSize: 25),
+                                                          ),
+                                                          onPressed: () async {
+                                                            // if (searchcubit
+                                                            //     .formKey
+                                                            //     .currentState!
+                                                            //     .validate()) {
+                                                            if (searchcubit
+                                                                    .selectedRegion ==
+                                                                null) {
+                                                              CustomeSnackBar
+                                                                  .showSnackBar(
+                                                                context,
+                                                                msg:
+                                                                    'Please Select Region',
+                                                                color:
+                                                                    Colors.red,
+                                                              );
+                                                            } else if (searchcubit
+                                                                    .price ==
+                                                                null) {
+                                                              CustomeSnackBar
+                                                                  .showSnackBar(
+                                                                context,
+                                                                msg:
+                                                                    'Please Select price',
+                                                                color:
+                                                                    Colors.red,
+                                                              );
+                                                            } else if (searchcubit
+                                                                    .space ==
+                                                                null) {
+                                                              CustomeSnackBar
+                                                                  .showSnackBar(
+                                                                context,
+                                                                msg:
+                                                                    'Please Select space',
+                                                                color:
+                                                                    Colors.red,
+                                                              );
+                                                            } else {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              const searchView()));
+                                                            }
+                                                            //  }
+                                                          }),
+                                                    ]),
+                                                const SizedBox(
+                                                  width: 100,
+                                                ),
+                                                Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Container(
+                                                          height: 3.0,
+                                                          width: 90.0,
+                                                          color: Colors.grey),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      TextButton(
+                                                        child: const Text(
+                                                          'Cancel',
+                                                          style: TextStyle(
+                                                              color: AppColors
+                                                                  .defaultColor,
+                                                              fontSize: 25),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
+                                                    ]),
+                                              ]),
+                                            ])
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ));
+                    },
+                    icon: Icon(Icons.search))
               ],
             ),
+
             bottomNavigationBar: BottomNavigationBar(
               items: propertiesCubit.bottomNavigationBarItems,
               onTap: (index) {

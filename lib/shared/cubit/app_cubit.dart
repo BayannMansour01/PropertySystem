@@ -13,6 +13,7 @@ class AppCubit extends Cubit<AppState> {
   List<String> types = ['House', 'Chalet', 'Market'];
   int s = 0;
   int p = 0;
+  int a = 0;
   void propertytype(String index) {
     p = types.indexOf(index);
     emit(add_type());
@@ -67,6 +68,34 @@ class AppCubit extends Cubit<AppState> {
           .removeWhere((element) => element.name == contact[index].name);
     }
     emit(add_feature());
+  }
+
+/////show
+  List<String> aa = [
+    '1/9/2023',
+    '2/9/2023',
+    '3/9/2023',
+    '4/9/2023',
+    '5/9/2023',
+    '6/9/2023',
+    '7/9/2023',
+    '8/9/2023',
+    '9/9/2023',
+    '10/9/2023',
+    '11/9/2023',
+    '12/9/2023',
+    '13/9/2023',
+    '14/9/2023',
+    '15/9/2023',
+    '16/9/2023',
+    '17/9/2023',
+    '18/9/2023',
+    '19/9/2023',
+    '20/9/2023',
+  ];
+  void reservation(String index) {
+    a = aa.indexOf(index);
+    emit(add_type());
   }
 }
 

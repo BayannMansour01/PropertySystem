@@ -58,6 +58,7 @@ class SelectRegionsButton extends StatelessWidget {
                       color: Colors.white,
                     ),
           onTap: () async {
+            FocusScope.of(context).unfocus();
             if (addPropertyCubit.selectedRegion != null) {
               addPropertyCubit.removeSelectedItem(helper: 'R');
             } else {

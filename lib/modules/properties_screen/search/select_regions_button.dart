@@ -84,6 +84,7 @@ class SelectRegionsButtons extends StatelessWidget {
                           //     ),
                           //  ),
                           //    );
+                          Navigator.pop(context);
                           log(searchCubit.selectedRegion?.name ?? '');
                         },
                         text: searchCubit.regions[index].name,

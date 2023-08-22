@@ -5,31 +5,27 @@ import '../../../../errors/failure.dart';
 import '../../../../models/property_model.dart';
 import '../../dio_helper.dart';
 
-abstract class IndexPropertiesService {
-  static Future<Either<Failure, List<PropertyModel>>> indexProperties(
-      {required String token, required double x, required double y}) async {
+abstract class ShowAllPropertiesService {
+  static Future<Either<Failure, List<PropertyModel>>> showAll(
+      {required String token}) async {
     try {
       var response = await DioHelper.getData(
-        url: 'properties/?page=&per_page=',
+        url: 'properties/show/all',
         token: token,
-        query: {
-          'x': x,
-          'y': y,
-        },
       );
       log(response.toString());
       List<PropertyModel> properties = [];
-      for (var item in response.data['properties']['data']) {
+      for (var item in response.data['properties']) {
         properties.add(PropertyModel.fromJson(item));
       }
       return right(properties);
     } catch (ex) {
-      log('\nException: there is an error in indexProperties method');
+      log('\nException: there is an error in showAll method');
       log('\n${ex.toString()}');
       if (ex is DioException) {
-        log(ex.response.toString());
         return left(ServerFailure.fromDioError(ex));
       }
+      log(ex.toString());
       return left(ServerFailure(ex.toString()));
     }
   }

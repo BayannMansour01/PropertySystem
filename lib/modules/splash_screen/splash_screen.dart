@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/modules/properties_screen/properties_screen.dart';
 import 'package:untitled/modules/splash_screen/widgets/sliding_text.dart';
-import 'package:untitled/shared/functions/custom_snack_bar.dart';
 import 'package:untitled/shared/network/local/cache_helper.dart';
 import 'package:untitled/shared/network/remote/services/auth/get_my_information_service.dart';
 import '../../shared/network/remote/firebase/firebase_apis.dart';
@@ -81,8 +80,16 @@ class _SplashViewState extends State<SplashView>
                   token: CacheHelper.getData(key: 'Token')))
               .fold(
             (failure) {
-              CustomeSnackBar.showErrorSnackBar(context,
-                  msg: failure.errorMessege);
+              // CustomeSnackBar.showErrorSnackBar(context,
+              //     msg: failure.errorMessege);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const LoginView();
+                  },
+                ),
+              );
             },
             (userModel) {
               Navigator.pushReplacement(

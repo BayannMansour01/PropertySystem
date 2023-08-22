@@ -11,7 +11,7 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'http://192.168.43.37:8000/api/',
+        baseUrl: 'http://192.168.43.142:8000/api/',
         receiveDataWhenStatusError: true,
         headers: {'Accept': 'application/json'},
       ),
@@ -91,7 +91,7 @@ class DioHelper {
   }) async {
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://192.168.43.37:8000/api/$endPoint'),
+      Uri.parse('http://192.168.43.142:8000/api/$endPoint'),
     );
     request.fields.addAll(body);
     if (imagesPaths != null) {

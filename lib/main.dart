@@ -11,7 +11,7 @@ import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/styles/app_colors.dart';
 import 'package:untitled/shared/utils/app_router.dart';
 import 'firebase_options.dart';
-import 'modules/splash_screen/splash_screen.dart';
+import 'modules/Search.dart';
 
 late Size screenSize;
 
@@ -57,8 +57,8 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          // home: const TestMaps(),
-          initialRoute: SplashView.route,
+          home: const Search(),
+          // initialRoute: SplashView.route,
           routes: AppRouter.router,
         );
       },
